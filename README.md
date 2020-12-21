@@ -1,4 +1,4 @@
-# mailll
+# mailserver
 
 ## Project setup
 ```
