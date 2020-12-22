@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="BACK/src/main/java"/>
+	<classpathentry kind="lib" path="BACK/Jars/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="BACK/Jars/LinkedLists.jar"/>
+	<classpathentry kind="lib" path="BACK/Jars/Queues.jar"/>
+	<classpathentry kind="lib" path="BACK/Jars/Stack.jar"/>
+	<classpathentry kind="output" path="BACK/target/classes"/>
+</classpath>
