@@ -1,4 +1,4 @@
-package interfaces;
+package mail.back.interfaces;
 public interface ILinkedList {
 	/**
 	* Inserts a specified element at the specified position in the list.
