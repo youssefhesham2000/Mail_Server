@@ -1,20 +1,15 @@
-package eg.edu.alexu.csd.mailServer;
+package mail.back;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Random;
-
-import javax.annotation.Resource;
-
+import mail.back.User;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,12 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import io.netty.handler.codec.http.HttpHeaders;
 
 @RestController
 @CrossOrigin(origins="*",allowedHeaders="*")
 public class Controller {
-	
+	static App app = new App();	
 	
 //	@PostMapping ("signUP")
 //	public int SignUP(@RequestBody User u ) {
@@ -43,16 +37,18 @@ public class Controller {
 //	}
 
 	@GetMapping("signin/{email}/{pass}")
-	public String getIDAndSignIN(@PathVariable String email,@PathVariable String pass) {
-		
-		/// return user Id + random session number
+	public Object getIDAndSignIN(@PathVariable String email,@PathVariable String pass) {
 		/// return error if user not registered
-	 return null;
+		User current_User = new User();
+		if(app.signin(email, pass))
+		 current_User = FolderManagerBIN.getUser(email);
+		else
+			return false;	 
 	}	
 	
 	
 	@GetMapping("getEmails/{userID}/{folderName}/{pageNo}")
-	public List<emails> getEmails(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable int pageNo) {
+	public List<Email> getEmails(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable int pageNo) {
 		
 		
 	  return null;

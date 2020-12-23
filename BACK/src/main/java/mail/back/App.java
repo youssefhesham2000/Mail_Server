@@ -26,7 +26,7 @@ public class App implements mail.back.interfaces.IApp {
 	
 	
 	@Override
-	public boolean signin(String email, String password) {
+	public Object signin(String email, String password) {
 		if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
 			return false;
 		}
@@ -43,8 +43,13 @@ public class App implements mail.back.interfaces.IApp {
 			return false;
 		}
 		else {
+<<<<<<< Updated upstream
 			LoggedInUser.addLoggedInUser(user,user.id);
 			return true;
+=======
+			loggedInUser = user;
+			return loggedInUser.id;
+>>>>>>> Stashed changes
 		}
 	}
 

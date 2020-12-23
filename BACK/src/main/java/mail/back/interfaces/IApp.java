@@ -12,7 +12,7 @@ public interface IApp {
 	* @param password
 	* @return false if the email name not exist
 	*/
-	public boolean signin(String email, String password);
+	public Object signin(String email, String password);
 	
 	/**
 	* Create new account
