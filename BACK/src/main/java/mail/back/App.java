@@ -98,13 +98,16 @@ public class App implements mail.back.interfaces.IApp {
 	
 	@Override
 	public void moveEmails(ILinkedList mails, IFolder des,int id) {
-		DoubleLinkedList emails = Email.readUserEmails(id, (Folder)des);
+		DoubleLinkedList emails = Email.readEmails();
 		for(int i = 0; i < mails.size();i++)
 		{
 			Email m = ((Email)mails.get(i));
 			int oldID = m.id;
-			m.id = m.calculateEmailID(id, (Folder)des);
+			m.id = m.calculateEmailID();
 			emails.add(m);
+			/// huissien ..to do
+			// move the id from  
+			//
 			String srcPath = "./Users/" + id + "/" + folder.type + "/" + oldID + "/";
 			String destPath = "./Users/" + id + "/" + ((Folder)des).type + "/" + m.id + "/";
 			new File(destPath).mkdirs();
@@ -119,7 +122,7 @@ public class App implements mail.back.interfaces.IApp {
 			}
 			new File(srcPath).delete();
 		}
-		Email.saveBulkEmails(emails, id, (Folder)des);
+		//Email.saveEmail(); we need to implement new fn to save the linked list after deleting them from the folders linked list
 	}
 
 	@Override
