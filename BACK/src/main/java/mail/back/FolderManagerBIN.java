@@ -23,6 +23,7 @@ public class FolderManagerBIN {
 	public static void initProgramDirectories()
 	{
 		new File("./Users").mkdirs();
+		new File("./Emails").mkdirs();
 	}
 	
 	public static User getUser(int id)
