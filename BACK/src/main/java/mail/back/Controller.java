@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import mail.back.User;
 import org.springframework.core.io.InputStreamResource;
@@ -30,10 +31,12 @@ public class Controller {
 	static App app = new App();	
 	
 	@PostMapping ("signUP")
-	public int SignUP(@RequestBody User u ) {
-		
-		// return id 
-		return 0;
+	public boolean SignUP(@PathVariable String first_Name, @PathVariable String last_Name, @PathVariable String Email, @PathVariable String pass) {
+		User user = new User(first_Name, first_Name, Email, pass);
+		if ( app.signup(user) )
+			return true;
+		else
+			return false;
 	}
 
 	@GetMapping("signin/{email}/{pass}")
@@ -64,10 +67,15 @@ public class Controller {
 	
 	
 	@GetMapping("getContacts/{userID}")
-	public List<Contact> getContacts(@PathVariable int userID) {
-		
-		
-	  return null;
+	public List<Contact> getContacts(@PathVariable int user_ID) {
+	  User user = FolderManagerBIN.getUser(user_ID);
+	  List<Contact> contacts = new ArrayList();
+	  for ( int i=0; i<user.contactsIDs.size(); i++){
+		User temp_1 = FolderManagerBIN.getUser((int) user.contactsIDs.get(i));
+		Contact temp_2 = new Contact(temp_1.firstName, temp_1.lastName, temp_1.emails);
+		contacts.add(temp_2);
+	  }
+	  return contacts;
 	}
 	
 	@PutMapping("renameFolder/{userID}/{oldName}/{newName}")
@@ -142,8 +150,4 @@ public class Controller {
 		}
 
 		}
-	
-	
-	
-	
 }
