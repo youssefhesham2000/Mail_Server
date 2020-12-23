@@ -22,21 +22,20 @@ public class User implements IContact, Serializable
 	
 	public static void createUserSubDirectory(int id)
 	{
-		//String path = Paths.get("").toAbsolutePath().toString() + "\\Users\\" + id + "\\";
 		try
 		{
 		String path = "./Users/" + id + "/";
 		new File(path).mkdirs();
 		new File(path+"inbox/").mkdirs();
-		new File(path+"inbox/index.txt").createNewFile();
+		new File(path+"inbox/index.json").createNewFile();
 		new File(path+"sent/").mkdirs();
-		new File(path+"sent/index.txt").createNewFile();
+		new File(path+"sent/index.json").createNewFile();
 		new File(path+"trash/").mkdirs();
-		new File(path+"trash/index.txt").createNewFile();
+		new File(path+"trash/index.json").createNewFile();
 		new File(path+"user defined folders/").mkdirs();
-		new File(path+"user defined folders/index.txt").createNewFile();
+		new File(path+"user defined folders/index.json").createNewFile();
 		new File(path+"Draft/").mkdirs();
-		new File(path+"Draft/index.txt").createNewFile();
+		new File(path+"Draft/index.json").createNewFile();
 		}catch(IOException e)
 		{
 			e.printStackTrace();

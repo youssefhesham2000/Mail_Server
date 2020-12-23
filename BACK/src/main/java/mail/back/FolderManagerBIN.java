@@ -1,11 +1,13 @@
 package mail.back;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 
 
@@ -51,33 +53,28 @@ public class FolderManagerBIN {
 	}
 	
 	public static void WriteObjectToFile(Object serObj, String path) {
-		
-		//System.out.println(serObj.getClass().toString());
-		
+        Gson GsonStr = new GsonBuilder().setPrettyPrinting().create();
+        String JsonStr = GsonStr.toJson(serObj);
         try {
-            FileOutputStream fileOut = new FileOutputStream(path);
-            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
-            objectOut.writeObject(serObj);
-            objectOut.close();
-            //System.out.println("The Object  was succesfully written to a file");
- 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+			Files.write(Paths.get(path), JsonStr.toString().getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
     }
 	
 	
-	public static Object ReadObjectFromFile(String path)
+	public static DoubleLinkedList ReadObjectFromFile(String path)
 	{
-		Object s = null;
+		DoubleLinkedList s = null;
 		try
 		{
-			FileInputStream fstream = new FileInputStream(path);
-			ObjectInputStream objectIn = new ObjectInputStream(fstream);
-			
-			s = (Object)objectIn.readObject();
-			fstream.close();
-			objectIn.close();
+			Gson gson = new GsonBuilder().create();
+        	String input = Files.readString(Paths.get(path));
+        	s = gson.fromJson(input, new TypeToken<DoubleLinkedList>() {
+        }.getType());
 		}catch(Exception e)
 		{
 			new File(path);
@@ -89,7 +86,7 @@ public class FolderManagerBIN {
 	
 	public static void saveUsersLinkedList(DoubleLinkedList users)
 	{
-		WriteObjectToFile(users, "./Users/usersIndex.txt");
+		WriteObjectToFile(users, "./Users/usersIndex.json");
 	}
 	
 	/**  
@@ -97,7 +94,7 @@ public class FolderManagerBIN {
 	 */
 	public static DoubleLinkedList getUsers() 
 	{
-		DoubleLinkedList d = (DoubleLinkedList)ReadObjectFromFile("./Users/usersIndex.txt");
+		DoubleLinkedList d = (DoubleLinkedList)ReadObjectFromFile("./Users/usersIndex.json");
 		if(d == null)
 			return new DoubleLinkedList();
 		return d;
@@ -154,32 +151,4 @@ public class FolderManagerBIN {
 		System.out.println("........................................");
 	}
 	
-	public static void clearUsers() {
-		//delete directories
-		deleteDirectory(new File("Users"));
-		new File("./Users").mkdirs();
-		//TODO reset lastID
-	}
-	
-	static boolean deleteDirectory(File directoryToBeDeleted) {
-	    File[] allContents = directoryToBeDeleted.listFiles();
-	    if (allContents != null) {
-	        for (File file : allContents) {
-	            deleteDirectory(file);
-	        }
-	    }
-	    return directoryToBeDeleted.delete();
-	}
-	
-
-	
-	/*public static void main(String[] args) {
-		FolderManagerBIN f = new FolderManagerBIN();
-		f.initProgramDirectories();
-		DoublyLinkedList users = getUsers();
-		users.add(new User("ahmed", "Bahgat", "ahmedelsherif@gmal.com", "fsfsdfds"));
-		saveUsersLinkedList(users);
-		
-		System.out.println(((User)users.get(0)).emails[0]);
-	}*/
 }
