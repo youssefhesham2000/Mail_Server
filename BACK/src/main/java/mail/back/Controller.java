@@ -29,16 +29,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class Controller {
 	static App app = new App();	
 	
-//	@PostMapping ("signUP")
-//	public int SignUP(@RequestBody User u ) {
-//		
-//		// return id 
-//		return 0;
-//	}
+	@PostMapping ("signUP")
+	public int SignUP(@RequestBody User u ) {
+		
+		// return id 
+		return 0;
+	}
 
 	@GetMapping("signin/{email}/{pass}")
 	public Object getIDAndSignIN(@PathVariable String email,@PathVariable String pass) {
-		/// return error if user not registered
+		/// return error if user not registereddsd
 		Object signOutput= app.signin(email, pass);
 		if((boolean)signOutput)
 		return signOutput;
