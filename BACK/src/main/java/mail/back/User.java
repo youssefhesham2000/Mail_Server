@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import mail.back.interfaces.IContact;
@@ -15,7 +17,8 @@ public class User implements IContact, Serializable
 	public String firstName;
 	String lastName;
 	
-	
+	static List <DoubleLinkedList> folders=new ArrayList<DoubleLinkedList>();
+	static List <String> foldersNames=new ArrayList<String>();
 	DoubleLinkedList emails;
 	DoubleLinkedList contactsIDs;
 	public String password;
@@ -28,14 +31,16 @@ public class User implements IContact, Serializable
 		new File(path).mkdirs();
 		new File(path+"inbox/").mkdirs();
 		new File(path+"inbox/index.json").createNewFile();
+		foldersNames.add("Inbox");
 		new File(path+"sent/").mkdirs();
 		new File(path+"sent/index.json").createNewFile();
+		foldersNames.add("Sent");
 		new File(path+"trash/").mkdirs();
 		new File(path+"trash/index.json").createNewFile();
-		new File(path+"user defined folders/").mkdirs();
-		new File(path+"user defined folders/index.json").createNewFile();
+		foldersNames.add("Trash");
 		new File(path+"Draft/").mkdirs();
 		new File(path+"Draft/index.json").createNewFile();
+		foldersNames.add("Draft");
 		}catch(IOException e)
 		{
 			e.printStackTrace();

@@ -111,11 +111,12 @@ public class Email implements IMail, Serializable
 	 */
 	
 	
-	int calculateEmailID(int userID, Folder folder)
+	int calculateEmailID()
 	{
+		
 		int id;
 		//User user = FolderManagerBIN.getUser(userID);
-		DoubleLinkedList emails = readUserEmails(userID, folder);
+		DoubleLinkedList emails = readEmails();
 		
 		
 		for (int i = 0;i < emails.size();i++)
@@ -123,40 +124,15 @@ public class Email implements IMail, Serializable
 		
 		
 		
-		String path = "./Users/" + userID + "/" + folder.type + "/lastID.txt";
-
-		try
-		{
-			File file = new File(path);
-			Scanner cin = new Scanner(file);
-			id = cin.nextInt()+1;
-			cin.close();
-		}catch(Exception e)
-		{
-			id = 1;
-			try {
-				new File(path).createNewFile();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-		
-		try {
-			FileWriter writer = new FileWriter(path);
-			writer.write(String.valueOf(id));
-			writer.close();
-		} catch (IOException e) {
-			
-		}
+		id=emails.size();
 		
 		System.out.println(id);
 		return id;
 	}
 	
-	public void saveEmail(int userID, IFolder ifolder)
+	public void saveEmail()
 	{
-		User user = FolderManagerBIN.getUser(userID);
-		DoubleLinkedList emails = readUserEmails(userID, ifolder);
+		DoubleLinkedList emails = readEmails();
 		
 		
 		for (int i = 0;i < emails.size();i++)
@@ -164,40 +140,22 @@ public class Email implements IMail, Serializable
 		
 		
 		
-		Folder folder = (Folder)ifolder;
+		
 		
 		//ID the email object
 		
-		id = calculateEmailID(userID, folder);
-		String path = "./Users/" + userID + "/" + folder.type + "/lastID.txt";
-		String savePath = "./Users/" + userID + "/" + folder.type + "/index.json";
+		this.id = calculateEmailID();
 
-		try {
-			FileWriter writer = new FileWriter(path);
-			writer.write(String.valueOf(id));
-			writer.close();
-			emails.add(this);
-			FolderManagerBIN.WriteObjectToFile(emails, savePath);
-		} catch (IOException e) {
+		User sender = FolderManagerBIN.getUser(senderID);
+		User receiver = FolderManagerBIN.getUser(receiverID);
 		
-		}
-
+		sender.folders.get(1).add(this.id);
+		receiver.folders.get(0).add(this.id);
 		
-		String attachmentSavePath = "./Users/" + userID + "/" + folder.type + "/" + id + "/";
-		new File(attachmentSavePath).mkdirs();
-		for(int i = 0; i < attachments.size();i++)
-		{
-			File attachmentPath = new File((String)attachments.get(i));
-			try
-			{
-			Files.copy(attachmentPath.toPath(), 
-					new File(attachmentSavePath + attachmentPath.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
-			}catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-			
-		}
+		emails.add(this);
+		String path = "./Emails/emails.json";
+		FolderManagerBIN.WriteObjectToFile(emails, path);
+		//remember to save index of email in users
 	}
 	
 	/**
@@ -206,22 +164,15 @@ public class Email implements IMail, Serializable
 	 * @param Folder object, its type will be used (inbox, sent, trash ..)
 	 * @return DoubleLinkedList of the Email objects inside the folder
 	 */
-	public static DoubleLinkedList readUserEmails(int userID, IFolder f)
+	public static DoubleLinkedList readEmails()
 	{
-		Folder folder = (Folder)f;
-		String path = "./Users/" + userID + "/" + folder.type + "/index.json";
-		//System.out.println(path);
+		
+		String path = "./Emails/emails.json";
 		DoubleLinkedList emails = (DoubleLinkedList) FolderManagerBIN.ReadObjectFromFile(path);
 		if (emails == null)
 			return new DoubleLinkedList();
 		
 		return emails;
-	}
-	
-	public static void saveBulkEmails(DoubleLinkedList emails, int userID, Folder folder)
-	{
-		String path = "./Users/" + userID + "/" + folder.type + "/index.json";
-		FolderManagerBIN.WriteObjectToFile(emails, path);
 	}
 	
 	
