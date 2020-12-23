@@ -44,7 +44,7 @@ public interface IApp {
 	* @param mails to be moved
 	* @param des the destination folder
 	*/
-	public void moveEmails(ILinkedList mails, IFolder des);
+	public void moveEmails(ILinkedList mails, IFolder des,int id);
 	/**
 	* Send a new email
 	* @param email should contain all the information needed
@@ -54,4 +54,6 @@ public interface IApp {
 	public boolean compose(IMail email);
 
 	void moveEmails(eg.edu.alexu.csd.datastructure.linkedList.cs.Interfaces.ILinkedList mails, IFolder des);
+
+	void moveEmails(eg.edu.alexu.csd.datastructure.linkedList.cs.Interfaces.ILinkedList mails, IFolder des, int id);
 }

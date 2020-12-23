@@ -11,9 +11,9 @@ public static LoggedInUser getInstance() {
 	}
 	return instance;
 }
-List<User> loggedInUsers =new ArrayList<User>();
-public void addLoggedInUser(User newUser) {
-	
+private List<User> loggedInUsers =new ArrayList<User>();
+public void addLoggedInUser(User newUser,int id) {
+	loggedInUsers.add(id, newUser);
 }
 public List<User> getLoggedInUsers() {
 	return loggedInUsers;

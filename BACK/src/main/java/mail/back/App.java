@@ -16,7 +16,7 @@ public class App implements mail.back.interfaces.IApp {
 	
 	
 	public Folder folder;
-	public User loggedInUser;
+	LoggedInUser LoggedInUser;
 	public DoubleLinkedList currentlyLoadedEmails;
 	
 	public App() {
@@ -43,7 +43,7 @@ public class App implements mail.back.interfaces.IApp {
 			return false;
 		}
 		else {
-			loggedInUser = user;
+			LoggedInUser.addLoggedInUser(user,user.id);
 			return true;
 		}
 	}
@@ -97,16 +97,16 @@ public class App implements mail.back.interfaces.IApp {
 	// this requires updating the index file from outside this function in the source folder
 	
 	@Override
-	public void moveEmails(ILinkedList mails, IFolder des) {
-		DoubleLinkedList emails = Email.readUserEmails(loggedInUser.id, (Folder)des);
+	public void moveEmails(ILinkedList mails, IFolder des,int id) {
+		DoubleLinkedList emails = Email.readUserEmails(id, (Folder)des);
 		for(int i = 0; i < mails.size();i++)
 		{
 			Email m = ((Email)mails.get(i));
 			int oldID = m.id;
-			m.id = m.calculateEmailID(loggedInUser.id, (Folder)des);
+			m.id = m.calculateEmailID(id, (Folder)des);
 			emails.add(m);
-			String srcPath = "./Users/" + loggedInUser.id + "/" + folder.type + "/" + oldID + "/";
-			String destPath = "./Users/" + loggedInUser.id + "/" + ((Folder)des).type + "/" + m.id + "/";
+			String srcPath = "./Users/" + id + "/" + folder.type + "/" + oldID + "/";
+			String destPath = "./Users/" + id + "/" + ((Folder)des).type + "/" + m.id + "/";
 			new File(destPath).mkdirs();
 			String files[] = new File(srcPath).list();
 			for(String file: files)
@@ -119,7 +119,7 @@ public class App implements mail.back.interfaces.IApp {
 			}
 			new File(srcPath).delete();
 		}
-		Email.saveBulkEmails(emails, loggedInUser.id, (Folder)des);
+		Email.saveBulkEmails(emails, id, (Folder)des);
 	}
 
 	@Override
@@ -143,17 +143,27 @@ public class App implements mail.back.interfaces.IApp {
 	}
 
 
-	@Override
-	public void moveEmails(mail.back.interfaces.ILinkedList mails, IFolder des) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 	@Override
 	public IMail[] listEmails(int page) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void moveEmails(mail.back.interfaces.ILinkedList mails, IFolder des, int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void moveEmails(ILinkedList mails, IFolder des) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
