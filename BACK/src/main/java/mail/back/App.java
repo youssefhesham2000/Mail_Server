@@ -43,13 +43,8 @@ public class App implements mail.back.interfaces.IApp {
 			return false;
 		}
 		else {
-<<<<<<< Updated upstream
 			LoggedInUser.addLoggedInUser(user,user.id);
-			return true;
-=======
-			loggedInUser = user;
-			return loggedInUser.id;
->>>>>>> Stashed changes
+			return user.id;
 		}
 	}
 
