@@ -39,9 +39,9 @@ public class Controller {
 	@GetMapping("signin/{email}/{pass}")
 	public Object getIDAndSignIN(@PathVariable String email,@PathVariable String pass) {
 		/// return error if user not registered
-		User current_User = new User();
-		if(app.signin(email, pass))
-		 current_User = FolderManagerBIN.getUser(email);
+		Object signOutput= app.signin(email, pass);
+		if((boolean)signOutput)
+		return signOutput;
 		else
 			return false;	 
 	}	
