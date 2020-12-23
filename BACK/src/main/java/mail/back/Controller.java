@@ -1,4 +1,4 @@
-package eg.edu.alexu.csd.mailServer;
+package mail.back;
 
 import java.io.File;
 import java.io.FileInputStream;
