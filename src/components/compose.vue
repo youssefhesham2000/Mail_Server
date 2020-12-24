@@ -72,6 +72,7 @@
         >
           choose Attachments
         </v-btn>
+<<<<<<< HEAD
       </v-container> -->
     <v-container>
       <v-text-field label=" Subject"></v-text-field>
@@ -123,6 +124,54 @@
       >
     </v-container>
   </div>
+=======
+      </v-container>
+      <v-container>
+        <v-text-field label=" Subject"></v-text-field>
+      </v-container>
+      <v-container>
+        <v-textarea autocomplete="email" label="Email"></v-textarea>
+      </v-container>
+      <v-container>
+        <v-btn depressed elevation="10" outlined rounded x-large> Send</v-btn>
+        <v-btn depressed elevation="10" outlined rounded x-large>
+          Save as a draft</v-btn
+        >
+        <v-btn depressed elevation="10" outlined rounded x-large @click="loadDrafts()">
+          Load draft</v-btn
+        >
+      </v-container>
+      <v-container v-if="showDrafts">
+          <v-data-table
+      v-model="selected"
+      :headers="headers"
+      :items="drafts"
+      :single-select="singleSelect"
+      item-key="name"
+      show-select
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-switch
+          v-model="singleSelect"
+          label="Single select"
+          class="pa-3"
+        ></v-switch>
+        <!-- <v-btn> -->
+
+        <v-btn depressed white class="open" @click="openDraft()"
+          >open</v-btn
+        >
+        <!-- </v-btn> -->
+        <v-btn depressed white class="open">Delete</v-btn>
+
+        <br />
+      </template>
+    </v-data-table>
+      </v-container>
+    </div>
+  </v-app>
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
 </template>
 
 <script>
@@ -132,8 +181,9 @@ export default {
   name: "compose",
 
   components: {},
-
+  
   data: () => ({
+<<<<<<< HEAD
     port: "http://localhost:8089",
 
     fileName: "",
@@ -190,7 +240,35 @@ export default {
       // });
     },
   },
+=======
+    showDrafts:false,
+     drafts:[],
+     headers: [
+        {
+          text: "reciever",
+          align: "start",
+          sortable: false,
+          value: "reciever",
+        },
+        { text: "subject", value: "subject", sortable: false },
+        { text: "body", value: "body", sortable: false },
+        { text: "date", value: "date", sortable: false },
+     ]
+ }),
+methods:{
+loadDrafts(){
+//call the fetch to get the draft list and store it in drafts
+this.showDrafts=true;
+
+}
+
+
+
+}
+
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
 };
+
 </script>
 <style scoped>
 .sender {

@@ -29,15 +29,20 @@
         <v-btn @click="toggle()"> sign up instead</v-btn>
       </v-card>
     </v-container>
-
+    
     <v-container v-if="!signin & !ok">
       <v-card dark class="card">
         <br />
         <br />
         <v-text-field label=" first name"></v-text-field>
         <br />
+<<<<<<< HEAD
         <v-text-field label="last name"></v-text-field>
 
+=======
+          <v-text-field label="last name"></v-text-field>
+           
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
         <v-text-field label="email"></v-text-field>
         <br />
         <v-text-field type="password" label="password"></v-text-field>
@@ -50,7 +55,7 @@
         >
           sign up</v-btn
         >
-        <v-btn @click="toggle()"> sign in instead</v-btn>
+        <v-btn  @click="toggle()"> sign in instead</v-btn>
       </v-card>
     </v-container>
   </v-app>
@@ -76,7 +81,11 @@ export default {
     ln: "",
     ps: "",
     selectedItem: -1,
+<<<<<<< HEAD
     signin: false,
+=======
+    signin: true,
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
     ok: false,
     links: [
       {

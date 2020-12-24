@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template>
   <v-app>
     <!-- <HelloWorld />
@@ -49,6 +50,13 @@
       <v-toolbar flat app> </v-toolbar>
 
       <v-navigation-drawer app dark>
+=======
+ <template>
+  <v-app>
+    <nav >
+      <v-toolbar flat app> </v-toolbar>
+      <v-navigation-drawer app v-model="drawer" dark>
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
         <br />
         <br />
 
@@ -120,6 +128,7 @@
         <router-view></router-view>
       </v-container>
     </nav>
+<<<<<<< HEAD
   </v-app>
 </template>
 
@@ -130,10 +139,18 @@
 export default {
   name: "App",
   props: [],
+=======
+     </v-app>
+    </template>
+    <script>
+     export default {
+  name: "mainPage",
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
 
   components: {
     // HelloWorld,
   },
+<<<<<<< HEAD
   mounted() {
     var x = window.location.pathname;
     var ind = x.lastIndexOf("/");
@@ -158,17 +175,30 @@ export default {
     selectedItem: -1,
     signin: true,
     ok: true,
+=======
+
+  data: () => ({
+    userName: "salah",
+    selectedItem: -1,
+    signin: false,
+    ok: false,
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
     links: [
       {
         icon: "DashBoard",
         text: "DashBoard",
+<<<<<<< HEAD
         route: "/file",
+=======
+        route: "/",
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
       },
       { icon: "email", text: "My Projects", route: "/email" },
       { icon: "person", text: "table", route: "/table/ahmed/sent" },
     ],
     //
   }),
+<<<<<<< HEAD
   methods: {
     getUrl2() {
       return "/folders/" + this.userName;
@@ -202,6 +232,14 @@ export default {
 .link {
   text-decoration: none;
   background-color: grey darken-4;
+=======
+     }
+</script>
+<style scoped>
+.link {
+  text-decoration: none;
+  background-color : grey darken-4;
+>>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
   color: white;
   text-decoration-style: wavy;
   font-size: large;
