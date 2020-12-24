@@ -1,8 +1,8 @@
 <template>
   <div class="tab">
     <v-container>
-      <v-text-field label=" Search by email " ></v-text-field>
-      <v-btn depressed elevation="10" outlined rounded x-large @click="search()">
+      <v-text-field label=" Search" v-model="toBeSearched"></v-text-field>
+      <v-btn depressed elevation="10" outlined rounded x-large>
         Search
       </v-btn>
     </v-container>
@@ -18,13 +18,13 @@
             v-bind="attrs"
             v-on="on"
           >
-            {{sortBy}}
+            Sort by
           </v-btn>
         </template>
 
         <v-list>
-          <v-list-item v-for="(item, index) in sortItems" :key="index">
-            <v-list-item-title > <v-btn depressed elevation="10" outlined rounded x-large @click="changeSort(item)"> {{ item.title }}</v-btn> </v-list-item-title>
+          <v-list-item v-for="(item, index) in EMAil" :key="index">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -65,15 +65,11 @@ export default {
   components: {},
 
   data: () => ({
-    sortBy:"Sort By",
     AddEmail: false,
     singleSelect: false,
     selected: [],
-   sortItems:[
-     {title:"firstName" ,value:0},
-     {title:"E-mail" ,value:1},
-   ],
-   headers: [
+    toBeSearched : "",
+    headers: [
       { text: "Name", value: "Name" },
       { text: "MainEmailAddress", value: "MainEmailAddress" },
     ],
@@ -88,17 +84,6 @@ export default {
       },
     ],
   }),
-  methods:{
-    search(){
-      var emailToBeSearched=this.search;
-      console.log(emailToBeSearched)
-    },
-    changeSort(item){
-      this.sortBy=item.title;
-      // var sortValue=item.value;
-      //we call the fetch to sort contacts here
-    },
-  }
 };
 </script>
 <style scoped>

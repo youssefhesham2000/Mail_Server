@@ -72,7 +72,6 @@
         >
           choose Attachments
         </v-btn>
-<<<<<<< HEAD
       </v-container> -->
     <v-container>
       <v-text-field label=" Subject"></v-text-field>
@@ -123,9 +122,6 @@
         LOad draft</v-btn
       >
     </v-container>
-  </div>
-=======
-      </v-container>
       <v-container>
         <v-text-field label=" Subject"></v-text-field>
       </v-container>
@@ -170,8 +166,6 @@
     </v-data-table>
       </v-container>
     </div>
-  </v-app>
->>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
 </template>
 
 <script>
@@ -183,7 +177,6 @@ export default {
   components: {},
   
   data: () => ({
-<<<<<<< HEAD
     port: "http://localhost:8089",
 
     fileName: "",
@@ -195,6 +188,12 @@ export default {
     //
   }),
   methods: {
+   
+loadDrafts(){
+//call the fetch to get the draft list and store it in drafts
+this.showDrafts=true;
+
+},
     del() {
       var index = this.selectedItem;
       this.items.splice(index, 1);
@@ -240,7 +239,6 @@ export default {
       // });
     },
   },
-=======
     showDrafts:false,
      drafts:[],
      headers: [
@@ -254,20 +252,7 @@ export default {
         { text: "body", value: "body", sortable: false },
         { text: "date", value: "date", sortable: false },
      ]
- }),
-methods:{
-loadDrafts(){
-//call the fetch to get the draft list and store it in drafts
-this.showDrafts=true;
-
-}
-
-
-
-}
-
->>>>>>> 2d43a8db7781bbcc34c80c91fe9b1bc491359fcb
-};
+ }
 
 </script>
 <style scoped>
