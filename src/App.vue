@@ -8,15 +8,20 @@
         <br />
         <br />
 
-        <v-text-field label="email"></v-text-field>
+        <v-text-field label="email" v-model="email"></v-text-field>
         <br />
-        <v-text-field type="password" label="password"></v-text-field>
+        <v-text-field
+          type="password"
+          label="password"
+          v-model="pass"
+        ></v-text-field>
         <br />
         <br />
         <v-btn
           white
           class="btt"
           style="color:black; background-color:white; margin-left:20px"
+          @click="signinl()"
         >
           sign in</v-btn
         >
@@ -29,8 +34,10 @@
       <v-card dark class="card">
         <br />
         <br />
-        <v-text-field label="name"></v-text-field>
+        <v-text-field label=" first name"></v-text-field>
         <br />
+        <v-text-field label="last name"></v-text-field>
+
         <v-text-field label="email"></v-text-field>
         <br />
         <v-text-field type="password" label="password"></v-text-field>
@@ -39,105 +46,38 @@
         <v-btn
           style="color:black; background-color:white; margin-left:20px"
           class="btt"
+          @click="signup3()"
         >
           sign up</v-btn
         >
         <v-btn @click="toggle()"> sign in instead</v-btn>
       </v-card>
     </v-container>
-    <nav v-if="ok">
-      <v-toolbar flat app> </v-toolbar>
-
-      <v-navigation-drawer app v-model="drawer" dark>
-        <br />
-        <br />
-
-        <h1 style="margin-left:30px; color: white;">
-          name dddd
-        </h1>
-        <br />
-        <v-btn
-          depressed
-          style=" width:300px; padding-right:90px"
-          dark
-          @click="$router.push('/compose')"
-          >Compose</v-btn
-        >
-        <br />
-        <v-btn
-          depressed
-          dark
-          style=" width:300px; padding-right:80px"
-          @click="$router.push('/Folder')"
-          >New Folder</v-btn
-        >
-        <br />
-        <v-btn
-          depressed
-          dark
-          style=" width:300px; padding-right:90px"
-          @click="$router.push('/Contacts')"
-          >Contacts</v-btn
-        >
-        <br />
-        <v-btn
-          depressed
-          dark
-          style=" width:300px; padding-right:80px"
-          @click="$router.push('/EmailModification')"
-          >Email Modification</v-btn
-        >
-        <br />
-        <v-btn
-          depressed
-          dark
-          style=" width:300px; padding-right:80px"
-          @click="$router.push(getUrl2())"
-          >Folders Modification</v-btn
-        >
-        <v-list dense>
-          <v-subheader>Folders</v-subheader>
-          <v-list-item-group v-model="selectedItem" color="primary">
-            <v-list-item v-for="(link, i) in links" :key="i">
-              <v-list-item-icon>
-                <v-icon>mdi-folder</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title
-                  v-text="link.text"
-                  @click="$router.push(findLink(link))"
-                ></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-
-        <br />
-        <br />
-        <br />
-      </v-navigation-drawer>
-      <v-container>
-        <router-view></router-view>
-      </v-container>
-    </nav>
   </v-app>
 </template>
 
 <script>
 // import HelloWorld from "./components/HelloWorld";
+import axios from "axios";
 
 export default {
   name: "App",
-
   components: {
     // HelloWorld,
   },
-
   data: () => ({
+    port: "http://localhost:8089",
     userName: "salah",
+    id: 0,
+    email: "",
+    pass: "",
+    em: "",
+    fn: "",
+    ln: "",
+    ps: "",
     selectedItem: -1,
-    signin: true,
-    ok: true,
+    signin: false,
+    ok: false,
     links: [
       {
         icon: "DashBoard",
@@ -164,6 +104,42 @@ export default {
         return "mdi - folder";
       }
       return "mdi - folder";
+    },
+    signinl() {
+      axios
+        .get(this.port + "/signIn")
+        .then((res) => {
+          this.id = res.data;
+          if (this.id == -1) {
+            alert("wrong email or password");
+          } else {
+            window.location.assign("http://localhost:8081/home/" + this.id);
+          }
+        })
+        .catch((error) => {
+          this.errorMessage = error.message;
+          console.error("There was an error!", error);
+        });
+    },
+    signup3() {
+      var x = {
+        firstName: this.fn,
+        lastName: this.ln,
+        email: this.em,
+        password: this.ps,
+      };
+      axios({
+        url: this.port + "/signUp",
+        method: "POST",
+        data: x,
+      }).then((res) => {
+        this.id = res.data;
+        if (this.id == -1) {
+          alert("user already exist!");
+        } else {
+          alert("Great!! , sign in to access your sevice");
+        }
+      });
     },
   },
 };

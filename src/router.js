@@ -8,6 +8,9 @@ import HelloWorld from './components/HelloWorld'
 import Contacts from './components/Contacts'
 import EmailModification from'./components/EmailModification'
 import folderManipulation from './components/folderManipulation'
+import file from './components/file'
+import mainPage from './components/mainPage'
+
 Vue.use(Router)
 
 export default new Router({
@@ -52,6 +55,17 @@ export default new Router({
       name: 'folderManipulation',
       component: folderManipulation,
       props:true
-    }
+    },
+              {
+      path: '/file',
+      name: 'file',
+      component: file
+    },
+                {
+      path: 'http://localhost:8081//home/:id',
+      name: 'mainPage',
+      component: mainPage,
+      props:true
+    },
   ]
 })
