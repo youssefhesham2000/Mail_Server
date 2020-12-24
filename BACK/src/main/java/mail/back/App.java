@@ -145,17 +145,6 @@ public class App implements mail.back.interfaces.IApp {
 		
 	}
 
-
-	
-
-
-	@Override
-	public IMail[] listEmails(int page) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 	@Override
 	public void moveEmails(mail.back.interfaces.ILinkedList mails, IFolder des, int id) {
 		// TODO Auto-generated method stub

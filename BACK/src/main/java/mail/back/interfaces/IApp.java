@@ -36,11 +36,7 @@ public interface IApp {
 	* @param page to handle paging
 	* @return list of emails
 	*/
-	public IMail[] listEmails(int page);
-	/**
-	* You should use setViewingOptions function first
-	* @param mails to be moved to trash
-	*/
+	
 	public void deleteEmails(ILinkedList mails);
 	/**
 	* You should use setViewingOptions function first
