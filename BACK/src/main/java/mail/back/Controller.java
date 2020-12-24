@@ -29,7 +29,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @CrossOrigin(origins="*",allowedHeaders="*")
 public class Controller {
 	static App app = new App();	
-	
+	@PostMapping ("compose")
+	public void compose(@RequestBody Email e ) {
+		
+	}
+	@PostMapping ("saveDraft")
+	public void saveDraft(@RequestBody Email e ) {
+		
+	}
 	@PostMapping ("signUP")
 	public boolean SignUP(@PathVariable String first_Name, @PathVariable String last_Name, @PathVariable String Email, @PathVariable String pass) {
 		User user = new User(first_Name, first_Name, Email, pass);
@@ -48,7 +55,13 @@ public class Controller {
 		else
 			return false;	 
 	}	
-	
+	@GetMapping("userState/{userID}")
+	public String isUserSignedIn(@PathVariable int userID) {
+		
+		/// return yes if signed
+		/// else  return no
+	 return null;
+	}	
 	
 	@GetMapping("getEmails/{userID}/{folderName}/{pageNo}")
 	public List<Email> getEmails(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable int pageNo) {
@@ -57,7 +70,26 @@ public class Controller {
 	  return null;
 	}	
 	
+	@GetMapping("sort/{userID}/{folderName}/{sortType}")
+	public List<Email> sort(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable String sortType) {
+		
+		
+	  return null;
+	}	
 	
+	@GetMapping("search/{userID}/{folderName}/{searchType}")
+	public List<Email> search(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable  String searchType) {
+		
+		
+	  return null;
+	}	
+	
+	@GetMapping("filter/{userID}/{folderName}/{filterType}")
+	public List<Email> filter(@PathVariable int userID ,@PathVariable String folderName ,@PathVariable  String filterType) {
+		
+		
+	  return null;
+	}		  
 	@GetMapping("getFolders/{userID}")
 	public List<String> getFolders(@PathVariable int userID) {
 		User u=FolderManagerBIN.getUser(userID);
