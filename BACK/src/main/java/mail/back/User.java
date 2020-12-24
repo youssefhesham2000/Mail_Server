@@ -23,6 +23,24 @@ public class User implements IContact, Serializable
 	DoubleLinkedList contactsIDs;
 	public String password;
 	
+	public List<String> getFolderNames(){
+		return this.foldersNames;
+	}
+	public void setNewFolderName(String folderName) {
+		if (this.foldersNames.size()<10) {
+			foldersNames.add(folderName);
+		}
+	}
+	public void renameFolder(String folderToBeRenamed,String newName) {
+		for(int i=0;i<foldersNames.size();i++) {
+		if (this.foldersNames.get(i).equalsIgnoreCase(folderToBeRenamed)) {
+			foldersNames.remove(i);
+			foldersNames.add(i, newName);
+			//copy the data from the folders list of doublelinked to the new file and delete the old one
+			
+		}
+		}
+	}
 	public static void createUserSubDirectory(int id)
 	{
 		try

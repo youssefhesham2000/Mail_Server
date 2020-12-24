@@ -2,6 +2,9 @@ package mail.back.interfaces;
 
 
  
+import java.util.List;
+
+import mail.back.Email;
 import mail.back.interfaces.ILinkedList;
 
 public interface IApp {
@@ -56,4 +59,6 @@ public interface IApp {
 	void moveEmails(eg.edu.alexu.csd.datastructure.linkedList.cs.Interfaces.ILinkedList mails, IFolder des);
 
 	void moveEmails(eg.edu.alexu.csd.datastructure.linkedList.cs.Interfaces.ILinkedList mails, IFolder des, int id);
+
+	List<Email> listEmailsForView(int page);
 }

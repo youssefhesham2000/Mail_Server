@@ -60,9 +60,9 @@ public class Controller {
 	
 	@GetMapping("getFolders/{userID}")
 	public List<String> getFolders(@PathVariable int userID) {
+		User u=FolderManagerBIN.getUser(userID);
+		return u.getFolderNames();	
 		
-		
-	  return null;
 	}	
 	
 	
@@ -80,16 +80,16 @@ public class Controller {
 	
 	@PutMapping("renameFolder/{userID}/{oldName}/{newName}")
 	public void renameFolder(@PathVariable int userID, @PathVariable String oldName,@PathVariable String newName) {
-			
+		User u=FolderManagerBIN.getUser(userID);
+		u.renameFolder(oldName, newName);
 		
 	}
 	
 	
 	@PutMapping("addFolder/{userID}/{name}")
 	public void addFolder(@PathVariable int userID, @PathVariable String name) {
-		
-		
-		
+		User u=FolderManagerBIN.getUser(userID);
+		u.setNewFolderName(name);
 	}
 	
 	
@@ -110,7 +110,7 @@ public class Controller {
 	
 	
 	//////////
-	//  delete file in path: "attachments\\" +name
+	//  delete file in path: "attachments\\" +name  ..
 	///
 	@DeleteMapping("deleteAttachment/{name}")
 	public void deleteAttachment(@PathVariable String name) {

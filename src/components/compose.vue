@@ -85,9 +85,37 @@
         <v-btn depressed elevation="10" outlined rounded x-large>
           Save as a draft</v-btn
         >
-        <v-btn depressed elevation="10" outlined rounded x-large>
-          LOad draft</v-btn
+        <v-btn depressed elevation="10" outlined rounded x-large @click="loadDrafts()">
+          Load draft</v-btn
         >
+      </v-container>
+      <v-container v-if="showDrafts">
+          <v-data-table
+      v-model="selected"
+      :headers="headers"
+      :items="drafts"
+      :single-select="singleSelect"
+      item-key="name"
+      show-select
+      class="elevation-1"
+    >
+      <template v-slot:top>
+        <v-switch
+          v-model="singleSelect"
+          label="Single select"
+          class="pa-3"
+        ></v-switch>
+        <!-- <v-btn> -->
+
+        <v-btn depressed white class="open" @click="openDraft()"
+          >open</v-btn
+        >
+        <!-- </v-btn> -->
+        <v-btn depressed white class="open">Delete</v-btn>
+
+        <br />
+      </template>
+    </v-data-table>
       </v-container>
     </div>
   </v-app>
@@ -98,11 +126,35 @@ export default {
   name: "email",
 
   components: {},
-
+  
   data: () => ({
-    //
-  }),
+    showDrafts:false,
+     drafts:[],
+     headers: [
+        {
+          text: "reciever",
+          align: "start",
+          sortable: false,
+          value: "reciever",
+        },
+        { text: "subject", value: "subject", sortable: false },
+        { text: "body", value: "body", sortable: false },
+        { text: "date", value: "date", sortable: false },
+     ]
+ }),
+methods:{
+loadDrafts(){
+//call the fetch to get the draft list and store it in drafts
+this.showDrafts=true;
+
+}
+
+
+
+}
+
 };
+
 </script>
 <style scoped>
 .sender {

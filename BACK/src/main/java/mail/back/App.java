@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 
 import eg.edu.alexu.csd.datastructure.linkedList.cs.Interfaces.ILinkedList;
 import mail.back.interfaces.IContact;
@@ -73,10 +75,9 @@ public class App implements mail.back.interfaces.IApp {
 		return true;
 	}
 
-	//@Override
-	/*public void setViewingOptions(IFolder folder, IFilter filter, ISort sort) {
+	/*//@Override
+	public void setViewingOptions() {
 		currentlyLoadedEmails = Email.readUserEmails(loggedInUser.getID(), folder);
-
 		if(filter != null)
 			Filter.filter(currentlyLoadedEmails, (FilterComp)filter);
 		SortingTemp.quickSort(currentlyLoadedEmails,(ISort) sort);
@@ -87,9 +88,8 @@ public class App implements mail.back.interfaces.IApp {
 	}*/
 
 	/*@Override
-	public IMail[] listEmails(int page) {
-		Email[] emails = new Email[10];
-		
+	public List<Email> listEmailsForView(int page) {
+		List<Email> emails = new ArrayList<Email>();
 		for(int i = 0;i < 10 && 10*page + i < currentlyLoadedEmails.size();i++)
 			emails[i] = (Email)currentlyLoadedEmails.get(10*page+i);
 		return emails;
@@ -167,6 +167,13 @@ public class App implements mail.back.interfaces.IApp {
 	public void moveEmails(ILinkedList mails, IFolder des) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public List<Email> listEmailsForView(int page) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
